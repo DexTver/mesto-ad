@@ -1,4 +1,4 @@
-[https://github.com/DexTver/mesto-production](https://github.com/DexTver/mesto-production)
+[https://github.com/DexTver/mesto-production](https://dextver.github.io/mesto-production/)
 
 
 Запуск локального сервера разработки
