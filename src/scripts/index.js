@@ -6,10 +6,10 @@
   Из index.js не допускается что то экспортировать
 */
 
-import { createCardElement } from "./components/card.js";
+import { createCardElement, likeCard, deleteCard } from "./components/card.js";
 import { openModalWindow, closeModalWindow, setCloseModalWindowEventListeners } from "./components/modal.js";
 import { enableValidation, clearValidation } from "./components/validation.js";
-import { getUserInfo, getCardList, setUserInfo, setUserAvatar, addCard, deleteCard, changeLikeCardStatus } from "./components/api.js";
+import { getUserInfo, getCardList, setUserInfo, setUserAvatar, addCard, deleteCard as deleteCardApi, changeLikeCardStatus } from "./components/api.js";
 
 const validationSettings = {
   formSelector: ".popup__form",
@@ -64,8 +64,7 @@ const handleLikeCard = (likeButton, likeCountElement, cardId) => {
   const isLiked = likeButton.classList.contains("card__like-button_is-active");
   changeLikeCardStatus(cardId, isLiked)
     .then((updatedCard) => {
-      likeButton.classList.toggle("card__like-button_is-active");
-      likeCountElement.textContent = updatedCard.likes.length;
+      likeCard(likeButton, likeCountElement, updatedCard.likes.length);
     })
     .catch((err) => {
       console.log(err);
@@ -73,9 +72,9 @@ const handleLikeCard = (likeButton, likeCountElement, cardId) => {
 };
 
 const handleDeleteCard = (cardElement, cardId) => {
-  deleteCard(cardId)
+  deleteCardApi(cardId)
     .then(() => {
-      cardElement.remove();
+      deleteCard(cardElement);
     })
     .catch((err) => {
       console.log(err);
